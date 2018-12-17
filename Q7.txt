@@ -1,0 +1,16 @@
+import pyodbc
+import pandas as pd
+import matplotlib.pyplot as plt
+
+conn = pyodbc.connect("Driver={SQL Server};"
+                      "Server=FATHIYA;"
+                      "Database=db_final;"
+                      "Trusted_Connection=yes;")
+
+cursor = conn.cursor()
+sql = cursor.execute("select distinct Dosen, Matakuliah from dbo.Dosen where Dosen like 'Abdu Fadli Assomadi%'")
+result = sql.fetchall()
+df=pd.DataFrame([ij for ij in i] for i in result)
+df.rename(columns={0: 'Nama Dosen', 1:'Matakuliah'}, inplace = True)
+print (df)
+
